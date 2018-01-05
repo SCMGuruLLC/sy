@@ -1,9 +1,12 @@
 #!/bin/sh
 
-# sy - Show yourself
+# sy.sh
+# Easily and securely find user defined physical hosts and append
+# user defined host names to the local host file or remotely to the
+# host file of found hosts. 
 # Should work on all modern GNU/Linux distributions
 
-# Copyright (C) 2017 Scott C. MacCallum
+# Copyright (C) 2017, 2018 Scott C. MacCallum
 # scm@linux.com
 
 # This program is free software: you can redistribute it and/or
@@ -34,37 +37,37 @@ CheckUser () {
 # Are the dependent programs installed?
 
 CheckDepend () {
-    # Arp-scan
+    # arp-scan
     if ! [ "$(command -v arp-scan)" ]; then
-	echo "Arp-ping program was not found!"
+	echo "arp-scan program was not found!"
 
 	exit 1
     fi
 
-    # Cat
+    # cat
     if ! [ "$(command -v cat)" ]; then
-	echo "Cat program was not found!"
+	echo "cat program was not found!"
 
 	exit 1
     fi
 
-    # Cp
+    # cp
     if ! [ "$(command -v cp)" ]; then
-	echo "Cp program was not found!"
+	echo "cp program was not found!"
 
 	exit 1
     fi
 
-    # Echo
+    # echo
     if ! [ "$(command -v echo)" ]; then
-	printf "Echo program was not found!"
+	printf "echo program was not found!"
 
 	exit 1
     fi
 
-    # Tr
+    # tr
     if ! [ "$(command -v tr)" ]; then
-	echo "Tr program was not found!"
+	echo "tr program was not found!"
 
 	exit 1
     fi
@@ -86,17 +89,17 @@ FindHosts ()
 
     arp-scan $NetworkIP/$CIDRSuffix | grep $Host001MAC > /tmp/arp-scan
 
-    cat /tmp/arp | awk '{ print $1 }' > /tmp/ip
+    cat /tmp/arp | awk "{ print $1 }" > /tmp/ip
 
-    tr -d '\n' < /tmp/ip >> $HOME/hosts
+    tr -d "\n" < /tmp/ip >> $HOME/hosts
 
     echo "        $Host001" >> $HOME/hosts
 
     arp-scan $NetworkIP/$CIDRSuffix | grep $Host002MAC > /tmp/arp-scan
 
-    cat /tmp/arp | awk '{ print $1 }' > /tmp/ip
+    cat /tmp/arp | awk "{ print $1 }" > /tmp/ip
 
-    tr -d '\n' < /tmp/ip >> $HOME/hosts
+    tr -d "\n" < /tmp/ip >> $HOME/hosts
 
     echo "        $Host002" >> $HOME/hosts
 
@@ -116,7 +119,6 @@ BackupHosts () {
     echo "(1) Yes"
     echo "(2) No"
     echo -n "Make a backup copy of the local /etc/hosts file? "
-
     read backup
 
     case $backup in
@@ -147,7 +149,6 @@ AppendHosts () {
     echo "(1) Yes"
     echo "(2) No"
     echo -n "Append found hosts to the local /etc/hosts file? "
-
     read append
 
     case $append in
@@ -181,7 +182,6 @@ BackupRemoteHosts () {
     echo "(1) Yes"
     echo "(2) No"
     echo -n "Remotely backup a copy of each found hosts /etc/hosts file? "
-
     read RemoteBackup
 
     case $RemoteBackup in
@@ -223,7 +223,6 @@ AppendRemoteHosts () {
     echo "(1) Yes"
     echo "(2) No"
     echo -n "Remotely append each of the found hosts to their /etc/hosts file? "
-
     read RemoteAppend
 
     case $RemoteAppend in
