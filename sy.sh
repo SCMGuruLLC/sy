@@ -34,8 +34,6 @@ CheckUser () {
 	echo "Program must be run by root!"
 
 	exit 1
-    else
-	CheckDepend
     fi
 }
 
@@ -77,7 +75,7 @@ CheckDepend () {
 	exit 1
     fi
 
-    FindHosts
+    exit 0
 }
 
 # Find defined hosts
@@ -86,8 +84,8 @@ FindHosts ()
 {
     Host001MAC=""
     Host002MAC=""
-    NetworkIP="192.168.0.0"
-    CIDRSuffix="24"
+    NetworkIP=""
+    CIDRSuffix=""
 
     echo
     echo "Finding hosts..."
@@ -109,10 +107,6 @@ FindHosts ()
     echo "        $Host002" >> $HOME/hosts
 
     cat $HOME/hosts
-
-    BackupHosts
-
-    exit 1
 }
 
 # Backup /etc/hosts
@@ -255,4 +249,47 @@ AppendRemoteHosts () {
     esac
 }
 
+ARPScan () {
+    NetworkIP=""
+    CIDRSuffix=""
+
+    CheckUser
+
+    arp-scan $NetworkIP/$CIDRSuffix
+    
+    exit 0
+}
+
+while getopts "ah" opt; do
+    case $opt in
+	a)
+	    CheckUser
+	    
+	    ARPScan
+
+	    exit 1
+	    ;;
+	h)
+	    CheckUser
+
+	    FindHosts
+	    
+	    exit 1
+	    ;;
+
+	\?)
+	    echo "Option -a to preform ARP scan"
+	    echo "Option -h to preform hosts scan"
+
+	    exit 1
+	    ;;
+    esac
+done
+
 CheckUser
+
+CheckDepend
+
+FindHosts
+
+BackupHosts
