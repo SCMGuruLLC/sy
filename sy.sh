@@ -1,10 +1,13 @@
 #!/bin/sh
 
 # sy.sh
-# Easily and securely find user defined physical hosts and append
-# user defined host names to the local host file or remotely to the
-# host file of found hosts. 
-# Should work on all modern GNU/Linux distributions
+
+# Find user defined physical hosts, append user defined host names
+# and found IP addresses to a local/remote host file, update
+# locally/remotely a host file when an IP address of a host changes,
+# and make it easier to share a host file with others.
+
+# Should work on all Unix-like operating systems
 
 # Copyright (C) 2017, 2018 Scott C. MacCallum
 # scm@linux.com
