@@ -7,7 +7,9 @@
 # locally/remotely a host file when an IP address of a host changes,
 # and make it easier to share a host file with others.
 
-# Should work on all Unix-like operating systems
+# Should work on all Unix-like operating systems, although the chances
+# are good that you will need to install the arp-scan package. The
+# source code can be found here: https://github.com/royhills/arp-scan
 
 # Copyright (C) 2017, 2018 Scott C. MacCallum
 # scm@linux.com
