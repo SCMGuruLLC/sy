@@ -3,6 +3,7 @@
 # change-sy.sh
 
 # Change the show yourself program
+
 # Should work on all Unix-like operating systems
 
 # Copyright (C) 2017, 2018 Scott C. MacCallum
