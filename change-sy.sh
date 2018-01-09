@@ -1,8 +1,9 @@
 #!/bin/sh
 
 # change-sy.sh
-# Change the Show Yourself program
-# Should work on all modern GNU/Linux distributions
+
+# Change the show yourself program
+# Should work on all Unix-like operating systems
 
 # Copyright (C) 2017, 2018 Scott C. MacCallum
 # scm@linux.com
