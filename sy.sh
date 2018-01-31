@@ -2,6 +2,9 @@
 
 # sy.sh
 
+# Copyright (C) 2017, 2018 Scott C. MacCallum
+# scm@linux.com
+
 # Find user defined physical hosts, append user defined host names
 # and found IP addresses to a local/remote host file, update
 # locally/remotely a host file when an IP address of a host changes,
@@ -11,13 +14,6 @@
 # there is a chance that you will need to install the arp-scan package.
 # If it is not available for your operating system, download the source
 # code from here: https://github.com/royhills/arp-scan
-
-# Should work on all Unix-like operating systems, although it is likely
-# that you will need to install the arp-scan package. The source code
-# can be found here: https://github.com/royhills/arp-scan
-
-# Copyright (C) 2017, 2018 Scott C. MacCallum
-# scm@linux.com
 
 # This program is free software: you can redistribute it and/or
 # modify it under the terms of the GNU Affero License as published
