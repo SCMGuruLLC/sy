@@ -7,10 +7,16 @@
 # locally/remotely a host file when an IP address of a host changes,
 # and make it easier to share a host file with others.
 
+<<<<<<< HEAD
 # This program should work on all Unix-like operating systems, although
 # there is a chance that you will need to install the arp-scan package.
 # If it is not available for your operating system, download the source
 # code from here: https://github.com/royhills/arp-scan
+=======
+# Should work on all Unix-like operating systems, although it is likely
+# that you will need to install the arp-scan package. The source code
+# can be found here: https://github.com/royhills/arp-scan
+>>>>>>> bdf24029e7336c9e9e807392da11023da3200c50
 
 # Copyright (C) 2017, 2018 Scott C. MacCallum
 # scm@linux.com
@@ -35,8 +41,6 @@ CheckUser () {
 	echo "Program must be run by root!"
 
 	exit 1
-    else
-	CheckDepend
     fi
 }
 
@@ -78,7 +82,7 @@ CheckDepend () {
 	exit 1
     fi
 
-    FindHosts
+    exit 0
 }
 
 # Find defined hosts
@@ -87,8 +91,8 @@ FindHosts ()
 {
     Host001MAC=""
     Host002MAC=""
-    NetworkIP="192.168.0.0"
-    CIDRSuffix="24"
+    NetworkIP=""
+    CIDRSuffix=""
 
     echo
     echo "Finding hosts..."
@@ -110,10 +114,6 @@ FindHosts ()
     echo "        $Host002" >> $HOME/hosts
 
     cat $HOME/hosts
-
-    BackupHosts
-
-    exit 1
 }
 
 # Backup /etc/hosts
@@ -256,4 +256,47 @@ AppendRemoteHosts () {
     esac
 }
 
+ARPScan () {
+    NetworkIP=""
+    CIDRSuffix=""
+
+    CheckUser
+
+    arp-scan $NetworkIP/$CIDRSuffix
+    
+    exit 0
+}
+
+while getopts "ah" opt; do
+    case $opt in
+	a)
+	    CheckUser
+	    
+	    ARPScan
+
+	    exit 1
+	    ;;
+	h)
+	    CheckUser
+
+	    FindHosts
+	    
+	    exit 1
+	    ;;
+
+	\?)
+	    echo "Option -a to preform ARP scan"
+	    echo "Option -h to preform hosts scan"
+
+	    exit 1
+	    ;;
+    esac
+done
+
 CheckUser
+
+CheckDepend
+
+FindHosts
+
+BackupHosts
