@@ -7,16 +7,14 @@
 # locally/remotely a host file when an IP address of a host changes,
 # and make it easier to share a host file with others.
 
-<<<<<<< HEAD
 # This program should work on all Unix-like operating systems, although
 # there is a chance that you will need to install the arp-scan package.
 # If it is not available for your operating system, download the source
 # code from here: https://github.com/royhills/arp-scan
-=======
+
 # Should work on all Unix-like operating systems, although it is likely
 # that you will need to install the arp-scan package. The source code
 # can be found here: https://github.com/royhills/arp-scan
->>>>>>> bdf24029e7336c9e9e807392da11023da3200c50
 
 # Copyright (C) 2017, 2018 Scott C. MacCallum
 # scm@linux.com
