@@ -1,32 +1,36 @@
-# sy.c
+/*
+ * sy.c
+ * 
+ * This program is part of the Show yourself project
+ *
+ * Copyright (C) 2017, 2018 Scott C. MacCallum
+ * scm@linux.com
+ *
+ * Find user defined physical hosts, append user defined host names
+ * and found IP addresses to a local/remote host file, update
+ * locally/remotely a host file when an IP address of a host changes,
+ * and make it easier to share a host file with others.
+ *
+ * This program should work on all Unix-like operating systems, although
+ * there is a chance that you will need to install the arp-scan binary.
+ * If it is not available for your operating system, download the source
+ * code from here: https://github.com/royhills/arp-scan
+ *
+ * This program is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ */
 
-# Copyright (C) 2017, 2018 Scott C. MacCallum
-# scm@linux.com
-
-# Find user defined physical hosts, append user defined host names
-# and found IP addresses to a local/remote host file, update
-# locally/remotely a host file when an IP address of a host changes,
-# and make it easier to share a host file with others.
-
-# This program should work on all Unix-like operating systems, although
-# there is a chance that you will need to install the arp-scan package.
-# If it is not available for your operating system, download the source
-# code from here: https://github.com/royhills/arp-scan
-
-# This program is free software: you can redistribute it and/or
-# modify it under the terms of the GNU Affero License as published
-# by the Free Software Foundation, either version 3 of the License,
-# or (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses/.
-
-# Is this program being run by root?
+/* Is this program being run by root? */
 
 CheckUser () {
     if [ "$(id -u)" != "0" ]; then
@@ -36,38 +40,38 @@ CheckUser () {
     fi
 }
 
-# Are the dependent programs installed?
+/* Are the dependent programs installed? */
 
 CheckDepend () {
-    # arp-scan
+  /* arp-scan */
     if ! [ "$(command -v arp-scan)" ]; then
 	echo "arp-scan program was not found!"
 
 	exit 1
     fi
 
-    # cat
+					 /* cat */
     if ! [ "$(command -v cat)" ]; then
 	echo "cat program was not found!"
 
 	exit 1
     fi
 
-    # cp
+				    /* cp */
     if ! [ "$(command -v cp)" ]; then
 	echo "cp program was not found!"
 
 	exit 1
     fi
 
-    # echo
+				   /* echo */
     if ! [ "$(command -v echo)" ]; then
 	printf "echo program was not found!"
 
 	exit 1
     fi
 
-    # tr
+				     /* tr */
     if ! [ "$(command -v tr)" ]; then
 	echo "tr program was not found!"
 
@@ -77,7 +81,7 @@ CheckDepend () {
     exit 0
 }
 
-# Find defined hosts
+/* Find defined hosts */
 
 FindHosts ()
 {
@@ -108,7 +112,7 @@ FindHosts ()
     cat $HOME/hosts
 }
 
-# Backup /etc/hosts
+/* Backup /etc/hosts */
 
 BackupHosts () {
     TimeStamp=$(date +%Y%m%d%H%M%S)
@@ -140,7 +144,7 @@ BackupHosts () {
     esac
 }
 
-# Append found hosts to /etc/hosts
+/* Append found hosts to /etc/hosts */
 
 AppendHosts () {
     echo
@@ -170,7 +174,7 @@ AppendHosts () {
     esac
 }
 
-# Remotely backup /etc/hosts
+/* Remotely backup /etc/hosts */
 
 BackupRemoteHosts () {
     local Host001=""
@@ -211,7 +215,7 @@ BackupRemoteHosts () {
     esac
 }
 
-# Remotely append found hosts to their /etc/hosts
+/* Remotely append found hosts to their /etc/hosts */
 
 AppendRemoteHosts () {
     local Host001=""
